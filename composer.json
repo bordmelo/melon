@@ -1,0 +1,16 @@
+{
+  "name": "melon/framework",
+  "description": "A Simple Framework MVC",
+  "license": "MIT",
+  "type": "project",
+  "authors": [{"name": "Lucas Melo", "email": "lucasmelo@protonmail.com"}],
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/",
+      "Core\\": "core/"
+    }
+  },
+  "require": {
+    "php": ">=5.4"
+  }
+}
