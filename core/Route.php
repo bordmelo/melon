@@ -20,6 +20,20 @@ class Route {
     $this->routes = $newRoutes;
   }
 
+  private function getRequest() {
+    $obj = new \stdClass;
+
+    foreach($_GET as $key => $value) {
+      @$obj->get->$key = $value;
+    }
+
+    foreach($_POST as $key => $value) {
+      @$obj->post->$key = $value;
+    }
+
+    return $obj;
+  }
+
   private function getUrl() {
     return parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
   }
@@ -47,10 +61,12 @@ class Route {
     if(isset($controller)) {
       $controller = Container::newController($controller);
       if(isset($param)) {
-        $controller->$action($param);
+        $controller->$action($param, $this->getRequest());
       } else {
-        $controller->$action();
+        $controller->$action($this->getRequest());
       }
+    } else {
+      echo "Página não encontrada.";
     }
   }
 }
