@@ -33,7 +33,7 @@ class Route {
       for ($i = 0; $i < count($routeArray); $i++) {
         if((strpos($routeArray[$i], '{') !== false) && (count($urlArray) == count($routeArray)) && (is_numeric($urlArray[$i]))) {
           $routeArray[$i] = $urlArray[$i];
-          $param[] = $urlArray[$i];
+          $param = $urlArray[$i];
         }
         $route[0] = implode('/', $routeArray);
       }
@@ -41,6 +41,15 @@ class Route {
         $controller = $route[1];
         $action = $route[2];
         break;
+      }
+    }
+
+    if(isset($controller)) {
+      $controller = Container::newController($controller);
+      if(isset($param)) {
+        $controller->$action($param);
+      } else {
+        $controller->$action();
       }
     }
   }
