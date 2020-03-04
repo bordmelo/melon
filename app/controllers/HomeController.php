@@ -2,16 +2,11 @@
 
 namespace App\Controllers;
 
-class HomeController {
+use Core\BaseController;
 
-  private $view;
-
-  public function __construct() {
-    $this->view = new \stdClass;
-  }
-
+class HomeController extends BaseController {
   public function index() {
     $this->view->name = "Lucas Melo";
-    require_once __DIR__ . "/../views/home/index.phtml";
+    $this->renderView('home/index', 'layout');
   }
 }
